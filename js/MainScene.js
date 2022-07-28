@@ -252,10 +252,25 @@ export default class MainScene extends Phaser.Scene {
       this.firePlatform
     )
 
-    //sound effect
+    // sound effect
     this.playerExplosion = this.sound.add('player-explosion')
     this.laserSound = this.sound.add('laserSound')
     this.enemyExplosion = this.sound.add('enemy-explosion')
+
+    // mobile controls
+    const jump = this.add.rectangle(0, 0, 1500, 2000, 0x6666ff).setInteractive();
+    jump.setAlpha(0.01)
+    jump.on('pointerdown', () => {
+      this.player.setVelocityY(this.player.body.velocity.y - 200)
+      console.log('clocked')
+    })
+
+    const shoot = this.add.rectangle(1900, 0, 1500, 2000, 0xff0000).setInteractive();
+    shoot.setAlpha(0.01)
+    shoot.on('pointerdown', () => {
+      this.fireBullet()
+      this.laserSound.play()
+    })
   }
 
   //functions that need to be called
